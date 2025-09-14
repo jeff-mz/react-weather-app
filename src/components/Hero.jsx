@@ -14,10 +14,10 @@ const Hero = () => {
     if (!query) return;
 
     setLoading(true);
-    setError(null);
+    setError({ type: "", message: "" });
 
     try {
-      // 1️⃣ Get coordinates from OpenWeather Geocoding API
+      //  get coordinates from OpenWeather Geocoding API
       const geoRes = await fetch(
         `http://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=1&appid=${GEO_API_KEY}`
       );
@@ -25,40 +25,34 @@ const Hero = () => {
 
       if (geoData.length === 0) {
         setLoading(false);
-        setError("Location not found");
-        console.log("No location found");
+        setError({
+          type: "NO_RESULTS",
+          message: "No result was found for your search.",
+        });
         return;
       }
 
       const { lat, lon, name, country } = geoData[0];
       const countryName = countries.getName(country, "en");
 
-      // Save location in context
+      // save location in context
       setLocation({ lat, lon, name, country, countryName });
 
-      // console.log("✅ Location Info:");
-      // console.log("City:", name);
-      // console.log("Country Code:", country);
-      // console.log("Country Name:", countryName);
-      // console.log("Latitude:", lat);
-      // console.log("Longitude:", lon);
-
-      // 2️⃣ Fetch weather from Open-Meteo
+      // fetch weather from Open-Meteo
       const weatherRes = await fetch(
         `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_2m,weathercode&current_weather=true`
       );
       const weatherData = await weatherRes.json();
 
-      // Save weather in context (optional, if you want to use it elsewhere)
+      // Save weather in context
       setWeather(weatherData);
-
-      // console.log("✅ Weather Info:");
-      // console.log(weatherData);
-
       setLoading(false);
     } catch (err) {
       console.error("Error fetching data:", err);
-      setError("Failed to fetch weather");
+      setError({
+        type: "API_ERROR",
+        message: "Could not connect to the weather service.",
+      });
       setLoading(false);
     }
   };
@@ -100,14 +94,14 @@ const Hero = () => {
             id="city-search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="bg-gray-50 border border-gray-300 text-[15px] rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 text-neutral-400 placeholder:text-neutral-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="bg-gray-50 border border-gray-300 text-[15px] rounded-xl block w-full ps-10 p-2.5 dark:bg-gray-700  text-neutral-400 placeholder:text-neutral-400"
             placeholder="Search for a place..."
             required
           />
         </div>
         <button
           type="submit"
-          className="w-full sm:w-1/4 mt-2 sm:mt-0 py-2.5 sm:py-2 px-2 ms-0 sm:ms-2.5 text-base font-medium text-neutral-200 bg-blue-700 rounded-xl border border-none hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          className="w-full sm:w-1/4 mt-2 sm:mt-0 py-2.5 sm:py-2 px-2 ms-0 sm:ms-2.5 text-base font-medium text-neutral-200 bg-blue-700 rounded-xl border border-none hover:bg-blue-800 focus:ring-0 focus:outline-none dark:bg-blue-600"
         >
           Search
         </button>

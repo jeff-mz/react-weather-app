@@ -10,18 +10,30 @@ const MainCard = () => {
   const { query, location, weather, loading, error } = useWeather();
 
   useEffect(() => {
-    console.log("information:", query, location, weather, loading, error);
+    console.log(
+      "query:",
+      query,
+      "location;",
+      location,
+      "weather:",
+      weather,
+      "loading :",
+      loading,
+      "error :",
+      error
+    );
   }, [query, location, weather, loading, error]);
 
+  // icons based on weather
   const getWeatherIcon = (code) => {
-    if (code === 0) return sun_icon; // Clear sky
-    if ([1, 2, 3].includes(code)) return cloud_icon; // Mainly clear, partly cloudy, overcast
-    if ([45, 48].includes(code)) return cloud_icon; // Fog
-    if ([51, 53, 55, 56, 57].includes(code)) return rain_icon; // Drizzle
-    if ([61, 63, 65, 66, 67].includes(code)) return rain_icon; // Rain
-    if ([71, 73, 75, 77, 85, 86].includes(code)) return snow_icon; // Snow
-    if ([95, 96, 99].includes(code)) return thunder_icon; // Thunderstorm
-    return sun_icon; // fallback
+    if (code === 0) return sun_icon;
+    if ([1, 2, 3].includes(code)) return cloud_icon;
+    if ([45, 48].includes(code)) return cloud_icon;
+    if ([51, 53, 55, 56, 57].includes(code)) return rain_icon;
+    if ([61, 63, 65, 66, 67].includes(code)) return rain_icon;
+    if ([71, 73, 75, 77, 85, 86].includes(code)) return snow_icon;
+    if ([95, 96, 99].includes(code)) return overcast_icon;
+    return sun_icon;
   };
 
   return (

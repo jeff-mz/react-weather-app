@@ -7,7 +7,10 @@ export const WeatherProvider = ({ children }) => {
   const [location, setLocation] = useState(null); // { lat, lon }
   const [weather, setWeather] = useState(null); // fetched data
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState({
+    type: "",
+    message: "",
+  });
 
   const value = {
     query,
