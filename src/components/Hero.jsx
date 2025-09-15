@@ -94,14 +94,14 @@ const Hero = () => {
             id="city-search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="bg-gray-50 border border-gray-300 text-[15px] rounded-xl block w-full ps-10 p-2.5 dark:bg-gray-700  text-neutral-400 placeholder:text-neutral-400"
+            className="bg-gray-50 border-0 outline-0 hover:outline-0 hover:border-0 focus:outline-0 focus:border-0 text-[15px] rounded-xl block w-full ps-10 p-2.5 dark:bg-gray-700  text-neutral-400 placeholder:text-neutral-400"
             placeholder="Search for a place..."
             required
           />
         </div>
         <button
           type="submit"
-          className="w-full sm:w-1/4 mt-2 sm:mt-0 py-2.5 sm:py-2 px-2 ms-0 sm:ms-2.5 text-base font-medium text-neutral-200 bg-blue-700 rounded-xl border border-none hover:bg-blue-800 focus:ring-0 focus:outline-none dark:bg-blue-600"
+          className="w-full sm:w-1/4 mt-2 sm:mt-0 py-2.5 sm:py-2 px-2 ms-0 sm:ms-2.5 text-base font-medium text-neutral-200 bg-neutral-700 rounded-xl border border-none hover:bg-neutral-700 focus:ring-0 focus:outline-none dark:bg-neutral-800"
         >
           Search
         </button>
